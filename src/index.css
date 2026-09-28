@@ -1,0 +1,107 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===== 主题变量（RGB 三元组，供 Tailwind 以 rgb(var()/alpha) 消费） ===== */
+
+/* 深色模式（默认）：午夜星空与深海 */
+:root,
+html.dark {
+  --c-bg: 15 23 42;        /* ink-900 页面底 */
+  --c-surface: 30 41 59;   /* ink-800 卡面 */
+  --c-fg: 248 250 252;     /* 主文字（亮字） */
+  --c-text2: 113 129 155;  /* ink-600 次级文字 */
+  --c-text3: 148 163 184;  /* ink-400 弱文字 */
+  --c-paper: 248 250 252;  /* ink-50 浅底 */
+  --c-primary: 56 189 248; /* sky */
+  --c-accent: 129 140 248; /* indigo */
+  --c-glow: 56 189 248;
+  --c-shadow: 15 23 42;
+}
+
+/* 浅色模式：白昼喷泉与白鸽（参考图重塑）
+   注：浅色下主文字必须是深色，否则白卡片上会看不见 */
+html.light {
+  --c-bg: 250 247 241;      /* 暖象牙白（页面底） */
+  --c-surface: 255 255 255; /* 纯白鸽羽（卡面） */
+  --c-fg: 44 38 72;         /* 主文字：深墨紫（对比度 ≈ 12:1） */
+  --c-text2: 98 90 132;     /* 次级文字：暖紫灰（≈ 6.5:1） */
+  --c-text3: 126 118 158;   /* 弱文字：中紫灰（≈ 5:1） */
+  --c-paper: 248 245 239;   /* 米白墙面 */
+  --c-primary: 132 118 200; /* 薰衣草紫（加深，保证文字可读） */
+  --c-accent: 226 122 100;  /* 玫瑰蜜桃（加深） */
+  --c-glow: 170 160 225;
+  --c-shadow: 154 146 216;  /* 柔和紫灰投影 */
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html.light {
+  color-scheme: light;
+}
+
+html,
+body {
+  height: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-ink-50 text-fg antialiased transition-colors duration-500 dark:bg-ink-900;
+  font-family: Inter, system-ui, -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+}
+
+/* 浅色模式：喷泉水光 + 阳光柔晕背景（固定不随滚动） */
+html.light body {
+  background-image:
+    radial-gradient(42rem 42rem at 12% -6%, rgb(var(--c-primary) / 0.16), transparent 62%),
+    radial-gradient(36rem 36rem at 96% 12%, rgb(191 224 230 / 0.35), transparent 60%),
+    radial-gradient(40rem 40rem at 82% 88%, rgb(var(--c-accent) / 0.14), transparent 62%),
+    radial-gradient(30rem 30rem at 6% 78%, rgb(242 205 178 / 0.20), transparent 60%);
+  background-attachment: fixed;
+}
+
+/* 浅色模式：标题用优雅衬线（呼应参考图的古典建筑气质） */
+html.light h1,
+html.light h2,
+html.light h3 {
+  font-family: Georgia, 'Times New Roman', 'Noto Serif SC', 'Source Han Serif SC', 'Songti SC', 'SimSun', serif;
+}
+
+/* 玻璃拟态卡片：浅色=鸽羽白卡片，深色=夜色玻璃 */
+.glass {
+  @apply border border-black/5 bg-white/70 backdrop-blur-xl dark:border-white/10 dark:bg-ink-800/60;
+}
+
+html.light .glass {
+  background: rgb(var(--c-surface) / 0.82);
+  border-color: rgb(var(--c-primary) / 0.14);
+  box-shadow:
+    0 10px 36px rgb(var(--c-shadow) / 0.12),
+    0 2px 8px rgb(var(--c-shadow) / 0.05);
+}
+
+/* 浅色模式：弹层遮罩柔化为薄暮紫 */
+html.light .modal-backdrop {
+  background: rgb(46 40 74 / 0.26);
+}
+
+/* 滚动条 */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-thumb {
+  @apply rounded-full bg-ink-400/40;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

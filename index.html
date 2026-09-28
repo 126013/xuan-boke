@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="zh-CN" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>December_瑄 の 小宇宙</title>
+    <meta name="description" content="December_瑄 の 小宇宙 —— 文章、杂谈、照片墙、音乐与设计项目。" />
+    <script>
+      // 主题预加载：避免首屏闪白（默认深色；支持 dark / light / system）
+      (function () {
+        try {
+          var saved = localStorage.getItem('theme')
+          var isLight = false
+          if (saved === 'system') {
+            isLight = window.matchMedia
+              ? window.matchMedia('(prefers-color-scheme: light)').matches
+              : false
+          } else if (saved) {
+            isLight = saved === 'light'
+          }
+          document.documentElement.classList.toggle('dark', !isLight)
+          document.documentElement.classList.toggle('light', isLight)
+        } catch (e) {}
+      })()
+    </script>
+    <script type="module" crossorigin src="./assets/index-BUzsXuNt.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-B5q8J1yk.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
